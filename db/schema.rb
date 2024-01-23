@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_22_061440) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_23_055301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "companies", force: :cascade do |t|
+    t.string "cik", null: false
+    t.string "name"
+    t.string "ticker"
+    t.text "prices"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "sector"
+    t.text "industry"
+    t.integer "employees", default: 0
+    t.bigint "market_cap", default: 0
+    t.float "percent_insiders", default: 0.0
+  end
 
   create_table "dummies", force: :cascade do |t|
     t.string "name"
@@ -21,6 +36,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_22_061440) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.index ["email"], name: "index_dummies_on_email", unique: true
+  end
+
+  create_table "form4s", force: :cascade do |t|
+    t.bigint "company_id"
+    t.bigint "insider_id"
+    t.float "sum_shares", default: 0.0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "officer_title"
+    t.float "sum_shares_after", default: 0.0
+  end
+
+  create_table "insiders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
