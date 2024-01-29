@@ -1,3 +1,4 @@
+# require 'rest-client'
 class CreateStripeCustomerJob < ApplicationJob
   queue_as :default
 
